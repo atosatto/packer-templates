@@ -3,29 +3,43 @@
     "esxi_host": "",
     "esxi_username": "root",
     "esxi_password": "",
-    "packer_datastore": "datastore1"
+    "packer_datastore": "datastore1",
+    "packer_network": "VM Network",
+    "ssh_user": "root",
+    "ssh_password": "centos"
   },
   "builders": [{
 
-    "_comment_iso": "ISO image and boot setup",
     "type": "vmware-iso",
     "iso_url": "http://ct.mirror.garr.it/mirrors/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
     "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
     "iso_checksum_type": "sha256",
-    "ssh_username": "packer",
+
+    "http_directory": "http",
+    "headless": false,
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-datacenter-centos.cfg<enter><wait>"
+    ],
     "shutdown_command": "shutdown -P now",
 
-    "_comment_vm": "VM configuration",
     "vm_name": "datacenter-centos",
-    "guest_os_type": "",
+    "guest_os_type": "rhel7-64",
+    "tools_upload_flavor": "linux",
+    "version": 9,
     "vmdk_name": "datacenter-centos",
     "vmx_data": {
       "memsize": "2048",
       "numvcpus": "2",
       "cpuid.coresPerSocket": "2",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.networkName": "{{ user `packer_network` }}"
     },
 
-    "_comment_esxi": "ESXI connection configuration",
+    "format": "ovf",
+
+    "ssh_username": "{{ user `ssh_user` }}",
+    "ssh_password": "{{ user `ssh_password` }}",
+
     "remote_type": "esx5",
     "remote_host": "{{ user `esxi_host` }}",
     "remote_username": "{{ user `esxi_username` }}",

@@ -1,3 +1,6 @@
+# Packer output directories
+datacenter-centos
+
 # Cache objects
 packer_cache/
 
