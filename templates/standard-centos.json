@@ -8,25 +8,26 @@
     "ssh_user": "root",
     "ssh_password": "centos"
   },
-  "builders": [{
+  "builders": [
+  {
 
     "type": "vmware-iso",
-    "iso_url": "http://ct.mirror.garr.it/mirrors/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+    "iso_url": "http://mi.mirror.garr.it/mirrors/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
     "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
     "iso_checksum_type": "sha256",
 
-    "http_directory": "http",
     "headless": false,
-    "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-datacenter-centos.cfg<enter><wait>"
+    "floppy_files": [
+        "http/ks-standard-centos.cfg"
     ],
+    "boot_command": "<tab> text ks=hd:fd0:/ks-standard-centos.cfg <enter><wait>",
     "shutdown_command": "shutdown -P now",
 
-    "vm_name": "datacenter-centos",
+    "vm_name": "CentOS-7-x86_64",
     "guest_os_type": "rhel7-64",
     "tools_upload_flavor": "linux",
     "version": 9,
-    "vmdk_name": "datacenter-centos",
+    "vmdk_name": "centos-7-x86_64",
     "vmx_data": {
       "memsize": "2048",
       "numvcpus": "2",
@@ -35,7 +36,7 @@
       "ethernet0.networkName": "{{ user `packer_network` }}"
     },
 
-    "format": "ovf",
+    "format": "ova",
 
     "ssh_username": "{{ user `ssh_user` }}",
     "ssh_password": "{{ user `ssh_password` }}",

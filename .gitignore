@@ -1,5 +1,5 @@
 # Packer output directories
-standard-centos
+CentOS-7-x86_64
 
 # Cache objects
 packer_cache/

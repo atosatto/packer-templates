@@ -13,6 +13,8 @@ Requirements
 Usage
 -----
 
+Build VMWare ovf with
+
     packer build \
       -var 'esxi_host=10.99.1.201' \
       -var 'esxi_password=<password>' \
