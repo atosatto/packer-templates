@@ -1,7 +1,7 @@
-packer-datacenter
+packer-templates
 ================
 
-Build Docker Datacenter hosts images with Packer.
+Collection of templates to build VMs images with Packer.
 
 Requirements
 ------------
@@ -16,4 +16,4 @@ Usage
     packer build \
       -var 'esxi_host=10.99.1.201' \
       -var 'esxi_password=<password>' \
-      templates/datacenter-centos.json
+      templates/standard-centos.json
