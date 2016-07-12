@@ -1,0 +1,70 @@
+{
+  "variables": {
+    "esxi_host": "",
+    "esxi_username": "root",
+    "esxi_password": "",
+    "packer_datastore": "datastore1",
+    "packer_network": "VM Network",
+
+    "ssh_user": "root",
+    "ssh_password": "centos",
+
+    "target_cluster": "",
+    "target_datacenter": "",
+    "target_datastore": "datastore1",
+    "target_vcenter_host": "",
+    "target_vcenter_username": "root",
+    "target_vcenter_password": ""
+  },
+  "builders": [
+  {
+
+    "type": "vmware-iso",
+    "iso_url": "http://mi.mirror.garr.it/mirrors/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+    "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+    "iso_checksum_type": "sha256",
+
+    "headless": false,
+    "floppy_files": [
+        "http/ks-centos-7.cfg"
+    ],
+    "boot_command": "<tab> text ks=hd:fd0:/ks-centos-7.cfg <enter><wait>",
+    "shutdown_command": "shutdown -P now",
+
+    "vm_name": "CentOS-7-x86_64",
+    "guest_os_type": "rhel7-64",
+    "tools_upload_flavor": "linux",
+    "version": 9,
+    "vmdk_name": "centos-7-x86_64",
+    "vmx_data": {
+      "memsize": "2048",
+      "numvcpus": "2",
+      "cpuid.coresPerSocket": "2",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.networkName": "{{ user `packer_network` }}"
+    },
+
+    "format": "ovf",
+
+    "ssh_username": "{{ user `ssh_user` }}",
+    "ssh_password": "{{ user `ssh_password` }}",
+
+    "remote_type": "esx5",
+    "remote_host": "{{ user `esxi_host` }}",
+    "remote_username": "{{ user `esxi_username` }}",
+    "remote_password": "{{ user `esxi_password` }}",
+    "remote_datastore": "{{ user `packer_datastore` }}"
+
+  }],
+  "post-processors": [{
+    "type": "vsphere",
+    "cluster": "{{ user `target_cluster` }}",
+    "datacenter": "{{ user `target_datacenter` }}",
+    "datastore": "{{ user `target_datastore` }}",
+    "host": "{{ user `target_vcenter_host` }}",
+    "username": "{{ user `target_vcenter_username` }}",
+    "password": "{{ user `target_vcenter_password` }}",
+    "vm_name": "CentOS-7-x86_64",
+    "insecure": "true"
+  }]
+}

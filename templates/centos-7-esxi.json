@@ -5,12 +5,12 @@
     "esxi_password": "",
     "packer_datastore": "datastore1",
     "packer_network": "VM Network",
+
     "ssh_user": "root",
     "ssh_password": "centos"
   },
   "builders": [
   {
-
     "type": "vmware-iso",
     "iso_url": "http://mi.mirror.garr.it/mirrors/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
     "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
@@ -18,9 +18,9 @@
 
     "headless": false,
     "floppy_files": [
-        "http/ks-standard-centos.cfg"
+        "http/ks-centos-7.cfg"
     ],
-    "boot_command": "<tab> text ks=hd:fd0:/ks-standard-centos.cfg <enter><wait>",
+    "boot_command": "<tab> text ks=hd:fd0:/ks-centos-7.cfg <enter><wait>",
     "shutdown_command": "shutdown -P now",
 
     "vm_name": "CentOS-7-x86_64",
@@ -36,7 +36,7 @@
       "ethernet0.networkName": "{{ user `packer_network` }}"
     },
 
-    "format": "ova",
+    "keep_registered": true,
 
     "ssh_username": "{{ user `ssh_user` }}",
     "ssh_password": "{{ user `ssh_password` }}",
@@ -46,6 +46,5 @@
     "remote_username": "{{ user `esxi_username` }}",
     "remote_password": "{{ user `esxi_password` }}",
     "remote_datastore": "{{ user `packer_datastore` }}"
-
   }]
 }

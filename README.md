@@ -15,7 +15,7 @@ Usage
 
 Build VMWare ovf with
 
-    packer build \
+    packer build  \
       -var 'esxi_host=10.99.1.201' \
-      -var 'esxi_password=<password>' \
-      templates/standard-centos.json
+      -var 'esxi_password=<packer_esxi_password> \
+      templates/centos-7-esxi.json
