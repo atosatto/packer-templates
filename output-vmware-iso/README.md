@@ -1,4 +1,4 @@
-Keeping this directory to prevent some packer nasty such as
+Keeping this directory to prevent some packer nasty errors such as
 
 ```bash
 # [ ... ]
