@@ -27,13 +27,16 @@
     "guest_os_type": "rhel7-64",
     "tools_upload_flavor": "linux",
     "version": 9,
+    "disk_size": "20000",
     "vmdk_name": "centos-7-x86_64",
     "vmx_data": {
       "memsize": "2048",
       "numvcpus": "2",
       "cpuid.coresPerSocket": "2",
       "ethernet0.virtualDev": "vmxnet3",
-      "ethernet0.networkName": "{{ user `packer_network` }}"
+      "ethernet0.networkName": "{{ user `packer_network` }}",
+      "vcpu.hotadd": "TRUE",
+      "mem.hotadd": "TRUE"
     },
 
     "keep_registered": true,
@@ -47,5 +50,11 @@
     "remote_username": "{{ user `esxi_username` }}",
     "remote_password": "{{ user `esxi_password` }}",
     "remote_datastore": "{{ user `packer_datastore` }}"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "yum install -y open-vm-tools"
+    ]
   }]
 }
