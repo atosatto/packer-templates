@@ -40,6 +40,7 @@
 
     "ssh_username": "{{ user `ssh_user` }}",
     "ssh_password": "{{ user `ssh_password` }}",
+    "ssh_wait_timeout": "1000s",
 
     "remote_type": "esx5",
     "remote_host": "{{ user `esxi_host` }}",
