@@ -7,7 +7,6 @@ Requirements
 ------------
 
 - [Packer](https://www.packer.io/)    >= 0.10
-- [Ansible](https://www.ansible.com/) >= 2.0
 - [ovftool](https://www.vmware.com/support/developer/ovf/)
 
 Usage
@@ -19,3 +18,13 @@ Build VMWare ovf with
       -var 'esxi_host=10.99.1.201' \
       -var 'esxi_password=<packer_esxi_password> \
       templates/centos-7-esxi.json
+
+License
+-------
+
+MIT
+
+Author Information
+------------------
+
+Andrea Tosatto ([@\_hilbert\_](https://twitter.com/_hilbert_))
